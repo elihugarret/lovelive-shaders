@@ -19,6 +19,7 @@ end
 
 function app.reload()
     myShader = love.graphics.newShader[[
+      
       extern number iGlobalTime;
       extern number val1;
 
@@ -35,6 +36,7 @@ function app.reload()
         c = 1.5 - sqrt(c);
         return vec4(vec3(c*c*c+c), 999.0) + vec4(0.0, 1.0, 1.0, 1);
       }
+  
    ]]
 end
 
