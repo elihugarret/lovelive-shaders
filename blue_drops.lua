@@ -1,5 +1,5 @@
-
 local app = {}
+local socket = require"socket"
 
 function app.liveconf(t)
   t.live = true
@@ -12,6 +12,10 @@ function app.liveconf(t)
 end
 
 function app.load()
+  udp = socket.udp()
+  local data
+  udp:settimeout(0)
+  udp:setsockname("*", 12345)
   value1 = 0
   time = 0
   app.reload()
@@ -19,7 +23,6 @@ end
 
 function app.reload()
     myShader = love.graphics.newShader[[
-      
       extern number iGlobalTime;
       extern number val1;
 
@@ -36,24 +39,24 @@ function app.reload()
         c = 1.5 - sqrt(c);
         return vec4(vec3(c*c*c+c), 999.0) + vec4(0.0, 1.0, 1.0, 1);
       }
-  
    ]]
 end
 
 function app.update(dt)
   time = time + dt;
-  myShader:send("iGlobalTime", time)
-  myShader:send("val1", value1)
-  if love.keyboard.isDown"q" then value1 = 1 
-    else value1 = 0
+  data = udp:receivefrom()
+  if data then 
+    value1 = tonumber(data) 
   end
+	myShader:send("iGlobalTime", time)
+  myShader:send("val1", value1)
 end
 
 function app.draw()
   local width = love.graphics.getWidth()
   local height = love.graphics.getHeight()
   love.graphics.setShader(myShader)
-  love.graphics.rectangle("fill", 0, 0, width, height)
+	love.graphics.rectangle("fill", 0, 0, width, height)
   love.graphics.setShader()
   love.timer.sleep(.001)
 end
