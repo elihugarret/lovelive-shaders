@@ -40,7 +40,7 @@ end
 
 function app.update(dt)
   time = time + dt;
-	myShader:send("iGlobalTime", time)
+  myShader:send("iGlobalTime", time)
   myShader:send("val1", value1)
   if love.keyboard.isDown"q" then value1 = 1 
     else value1 = 0
@@ -51,7 +51,7 @@ function app.draw()
   local width = love.graphics.getWidth()
   local height = love.graphics.getHeight()
   love.graphics.setShader(myShader)
-	love.graphics.rectangle("fill", 0, 0, width, height)
+  love.graphics.rectangle("fill", 0, 0, width, height)
   love.graphics.setShader()
   love.timer.sleep(.001)
 end
