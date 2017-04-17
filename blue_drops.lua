@@ -45,10 +45,8 @@ end
 function app.update(dt)
   time = time + dt;
   data = udp:receivefrom()
-  if data then 
-    value1 = tonumber(data) 
-  end
-	myShader:send("iGlobalTime", time)
+  if data then value1 = tonumber(data) end
+  myShader:send("iGlobalTime", time)
   myShader:send("val1", value1)
 end
 
