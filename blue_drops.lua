@@ -56,7 +56,7 @@ function app.draw()
   local width = love.graphics.getWidth()
   local height = love.graphics.getHeight()
   love.graphics.setShader(myShader)
-	love.graphics.rectangle("fill", 0, 0, width, height)
+  love.graphics.rectangle("fill", 0, 0, width, height)
   love.graphics.setShader()
   love.timer.sleep(.001)
 end
